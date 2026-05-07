@@ -13,6 +13,10 @@ permissions:
 
 jobs:
   goreleaser:
+    permissions:
+      id-token: write
+      contents: write
+      packages: write
     runs-on: ubuntu-latest
     steps:
 
@@ -51,6 +55,7 @@ jobs:
 
     - name: Setup KO
       uses: ko-build/setup-ko@v0.6
+
     - run: ko build --bare -t latest -t ${{ github.run_id }} -t ${{ fromJSON(steps.go-release.outputs.metadata).tag }} --image-label org.opencontainers.image.source=https://github.com/userbradley/immich-go
       env:
         KO_DOCKER_REPO: ghcr.io/userbradley/immich-go

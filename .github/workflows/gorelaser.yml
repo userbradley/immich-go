@@ -41,9 +41,14 @@ jobs:
       
     - name: Run GoReleaser
       uses: goreleaser/goreleaser-action@v6
+      id: go-release
       with:
         distribution: goreleaser
         version: '~> v2'
         args: release --clean
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Artifacts
+      run: print ${{steps.go-release.outputs.artifacts}}
+    - name: metadata
+      run: print ${{steps.go-release.outputs.metadata}}

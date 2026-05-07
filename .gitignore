@@ -5,6 +5,8 @@ immich-go
 .vscode/settings.json
 immich-go
 
+.idea
+
 !readme.md
 
 dist/
@@ -37,3 +39,4 @@ internal/e2e/immich-test
 internal/e2e/fixtures/wikimedia
 scratchpad/
 internal/e2e/testdata
+

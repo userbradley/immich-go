@@ -48,7 +48,9 @@ jobs:
         args: release --clean
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: Artifacts
-      run: print ${{steps.go-release.outputs.artifacts}}
-    - name: metadata
-      run: print ${{steps.go-release.outputs.metadata}}
+
+    - name: Setup KO
+      uses: ko-build/setup-ko@v0.6
+    - run: ko build --bare -t latest -t ${{ github.run_id }} -t ${{ github.ref }} --image-label org.opencontainers.image.source=https://github.com/userbradley/immich-go
+      env:
+        KO_DOCKER_REPO: ghcr.io/userbradley/immich-go

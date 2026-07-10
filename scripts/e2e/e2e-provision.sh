@@ -21,6 +21,7 @@ INSTALL_DIR="${1:-${PROJECT_DIR}/internal/e2e/testdata/immich-server}"
 IMMICH_PORT="${2:-2283}"
 COMPOSE_URL="https://github.com/immich-app/immich/releases/latest/download/docker-compose.yml"
 ENV_URL="https://github.com/immich-app/immich/releases/latest/download/example.env"
+REQUIRED_VERSION="v3.0.0-rc.2"
 TIMEOUT=180  # seconds to wait for API
 
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
@@ -65,6 +66,10 @@ if [ "${IMMICH_PORT}" != "2283" ]; then
     echo "# E2E Test Override" >> .env
     echo "IMMICH_PORT=${IMMICH_PORT}" >> .env
 fi
+
+# Override the version in .env to ensure we are using the required version
+echo "# E2E Test Override" >> .env
+echo "IMMICH_VERSION=${REQUIRED_VERSION}" >> .env
 
 # Create pgAdmin docker-compose file
 echo -e "${YELLOW}📝 Creating pgAdmin docker-compose file...${NC}"

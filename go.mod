@@ -3,6 +3,7 @@ module github.com/simulot/immich-go
 go 1.25
 
 require (
+	github.com/Masterminds/semver/v3 v3.4.0
 	github.com/disintegration/imaging v1.6.2
 	github.com/gdamore/tcell/v2 v2.11.0
 	github.com/google/uuid v1.6.0

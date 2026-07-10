@@ -181,20 +181,16 @@ func (uc *UpCmd) getImmichAlbums(ctx context.Context) error {
 			case <-ctx.Done():
 				return ctx.Err()
 			default:
-				// Get the album info from the server, with assets.
-				r, err := uc.client.Immich.GetAlbumInfo(ctx, a.ID, false)
+				ids := []string{}
+				ids, err = uc.client.Immich.GetAlbumAssetIDs(ctx, a.ID)
 				if err != nil {
-					uc.app.Log().Error("can't get the album info from the server", "album", a.AlbumName, "err", err)
+					uc.app.Log().Error("can't get the album assets from the server", "album", a.AlbumName, "err", err)
 					continue
-				}
-				ids := make([]string, 0, len(r.Assets))
-				for _, aa := range r.Assets {
-					ids = append(ids, aa.ID)
 				}
 
 				album := assets.NewAlbum(a.ID, a.AlbumName, a.Description)
 				uc.albumsCache.NewCollection(a.AlbumName, album, ids)
-				uc.app.Log().Info("got album from the server", "album", a.AlbumName, "assets", len(r.Assets))
+				uc.app.Log().Info("got album from the server", "album", a.AlbumName, "assets", len(ids))
 				uc.app.Log().Debug("got album from the server", "album", a.AlbumName, "assets", ids)
 				// assign the album to the assets
 				for _, id := range ids {

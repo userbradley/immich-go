@@ -3,7 +3,6 @@ package immich
 import (
 	"context"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io"
 	"net/url"
@@ -20,7 +19,10 @@ type Asset struct {
 	DeviceAssetID string `json:"deviceAssetId"`
 	DeviceID      string `json:"deviceId"`
 	// duplicateId
-	Duration       string     `json:"duration"`
+
+	// Not used and has changes in immich v3
+	// Duration       string     `json:"duration"`
+
 	ExifInfo       ExifInfo   `json:"exifInfo"`
 	FileCreatedAt  ImmichTime `json:"fileCreatedAt"`
 	FileModifiedAt ImmichTime `json:"fileModifiedAt"`
@@ -149,12 +151,6 @@ const (
 
 func (ic *ImmichClient) AssetUpload(ctx context.Context, la *assets.Asset) (AssetResponse, error) {
 	return ic.uploadAsset(ctx, la, EndPointAssetUpload, "")
-}
-
-// ReplaceAsset is deprecated, use CopyAsset
-func (ic *ImmichClient) ReplaceAsset(ctx context.Context, ID string, la *assets.Asset) (AssetResponse, error) {
-	return AssetResponse{}, errors.New("ReplaceAsset end point is deprecated, use CopyAsset")
-	// return ic.uploadAsset(ctx, la, EndPointAssetReplace, ID)
 }
 
 type GetAssetOptions struct {

@@ -2,11 +2,13 @@
 
 **Immich-Go** is an open-source tool designed to streamline uploading large photo collections to your self-hosted Immich server.
 
+> ✅ Compatible with Immich V2 and **V3**<br>
 > ⚠️ This is an early version, not yet extensively tested<br>
 > ⚠️ Keep a backup copy of your files for safety<br>
 
 ## 🌟 Key Features
 
+- **Immich V3 Ready**: Full compatibility with Immich V2 and V3
 - **Simple Installation**: No NodeJS or Docker required
 - **Multiple Sources**: Upload from Google Photos Takeouts, iCloud, local folders, ZIP archives, and other Immich servers
 - **Large Collections**: Successfully handles 100,000+ photos
@@ -34,7 +36,7 @@ immich-go archive from-immich --from-server=http://your-ip:2283 --from-api-key=y
 - A running Immich server with API access
 - API key with appropriate permissions ([see full list](docs/installation.md#api-permissions))
 
-> ⚠️ **Breaking Change**: API keys must now include the `asset.copy` and `asset.delete` permissions in addition to previously required permissions. Please update your API keys accordingly.
+> ⚠️ **Breaking Change (v0.32.0)**: The `ReplaceAsset` API method has been removed. The `asset.replace` permission is no longer needed. If your API key includes it, it will be ignored by the server. Use `asset.copy` instead for asset duplication needs.
 
 ## 🙈 Skip System Files
 
